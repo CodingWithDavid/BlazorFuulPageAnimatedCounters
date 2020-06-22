@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/FullPageApp
+/FullPageApp/bin/Release/netstandard2.1
+/FullPageApp/obj

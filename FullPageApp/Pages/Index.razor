@@ -1,0 +1,112 @@
+﻿@page "/"
+@using System.Timers
+
+<header class="header">
+    <h1>Animated Counter</h1>
+</header>
+
+<section class="counters">
+    <div class="container">
+        <div>
+            <i class="fab fa-youtube fa-4x icons"></i>
+            <div class="counter">@youtubeCounter</div>
+                <h3>Subscribers</h3>
+            </div>
+        <div>
+            <i class="fab fa-twitter fa-4x icons"></i>
+            <div class="counter">@twitterCounter</div>
+            <h3>Followers</h3>
+        </div>
+        <div>
+            <i class="fab fa-facebook fa-4x icons"></i>
+            <div class="counter" >@likesCounter</div>
+            <h3>Likes</h3>
+        </div>
+        <div>
+            <i class="fab fa-linkedin fa-4x icons"></i>
+            <div class="counter" >@conntectionsCounter</div>
+            <h3>Connections</h3>
+        </div>
+    </div>
+    </section>
+
+@code{
+
+    //counters
+    int youtubeCounter = 0;
+    int twitterCounter = 0;
+    int likesCounter = 0;
+    int conntectionsCounter = 0;
+
+    //max values
+    int youtubeMax = 6000;
+    int twitterMax = 5000;
+    int likesMax = 10000;
+    int conntectionsMax = 7500;
+
+    private Timer aTimer;
+    int step = 500;
+
+    protected override async Task OnInitializedAsync()
+    {
+        SetTimer();
+        await Task.CompletedTask;
+    }
+
+    private void SetTimer()
+    {
+        aTimer = new System.Timers.Timer(100);
+        // Hook up the Elapsed event for the timer.
+        aTimer.Elapsed += OnTimedEvent;
+        aTimer.AutoReset = true;
+        aTimer.Enabled = true;
+    }
+
+    private void OnTimedEvent(Object source, ElapsedEventArgs e)
+    {
+        int allDone = 0;
+
+        Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
+        e.SignalTime);
+        if (youtubeCounter < youtubeMax)
+        {
+            youtubeCounter += step;
+        }
+        else
+        {
+            allDone++;
+        }
+        if (twitterCounter < twitterMax)
+        {
+            twitterCounter += step;
+        }
+        else
+        {
+            allDone++;
+        }
+
+        if (likesCounter < likesMax)
+        {
+            likesCounter += step;
+        }
+        else
+        {
+            allDone++;
+        }
+
+        if (conntectionsCounter < conntectionsMax)
+        {
+            conntectionsCounter += step;
+        }
+        else
+        {
+            allDone++;
+        }
+        if (allDone == 4)
+        {
+            aTimer.Stop();
+            aTimer.Dispose();
+        }
+        InvokeAsync(StateHasChanged);
+    }
+}
